@@ -18,29 +18,31 @@ const MinThreeNumbers = () => {
     }
 
     const min = Math.min(n1, n2, n3);
-    setResult(`Minimum of ${n1}, ${n2}, and ${n3} is: ${min}`);
+    setResult(`Minimum between three numbers ${n1}, ${n2}, ${n3} is: ${min}`);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Find Minimum of Three Numbers</Text>
+      <Text style={styles.title}>Find the minimum between three numbers</Text>
+      <Text style={styles.label}>Enter number 1</Text>
       <TextInput
         style={styles.input}
-        placeholder="Number 1"
         value={num1}
         onChangeText={setNum1}
         keyboardType="numeric"
       />
+
+      <Text style={styles.label}>Enter number 2</Text>
       <TextInput
         style={styles.input}
-        placeholder="Number 2"
         value={num2}
         onChangeText={setNum2}
         keyboardType="numeric"
       />
+
+      <Text style={styles.label}>Enter number 3</Text>
       <TextInput
         style={styles.input}
-        placeholder="Number 3"
         value={num3}
         onChangeText={setNum3}
         keyboardType="numeric"
@@ -60,6 +62,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: 'red',
   },
   input: {
     borderWidth: 1,
@@ -71,6 +74,11 @@ const styles = StyleSheet.create({
   result: {
     marginTop: 10,
     fontSize: 16,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '500',
+    marginBottom: 5,
   },
 });
 

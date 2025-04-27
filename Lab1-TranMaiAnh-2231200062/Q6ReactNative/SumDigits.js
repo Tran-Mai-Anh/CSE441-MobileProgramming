@@ -16,15 +16,15 @@ const SumDigits = () => {
     const firstDigit = parseInt(numStr[0]);
     const lastDigit = parseInt(numStr[numStr.length - 1]);
     const sum = firstDigit + lastDigit;
-    setResult(`Sum of first (${firstDigit}) and last (${lastDigit}) digit: ${sum}`);
-  };
+    setResult(`Sum the first digits ${firstDigit} and the last digits ${lastDigit}: ${sum}`);
+  23};
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sum of First and Last Digit</Text>
+      <Text style={styles.title}>Sum the first digit and the last digit of a number</Text>
+      <Text style={styles.label}>Enter a number</Text>
       <TextInput
         style={styles.input}
-        placeholder="Enter a number"
         value={number}
         onChangeText={setNumber}
         keyboardType="numeric"
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: 'red',
   },
   input: {
     borderWidth: 1,
@@ -55,6 +56,11 @@ const styles = StyleSheet.create({
   result: {
     marginTop: 10,
     fontSize: 16,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '500',
+    marginBottom: 5,
   },
 });
 
