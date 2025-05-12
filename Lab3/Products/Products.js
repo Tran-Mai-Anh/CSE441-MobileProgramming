@@ -1,13 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  StyleSheet,
-} from 'react-native';
+import {View, Text, FlatList, Image, StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
-import {red100} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 const Products = () => {
@@ -45,13 +38,25 @@ const Products = () => {
         <Text style={styles.text}>Brand: {item.brand}</Text>
         <Text style={styles.text}>Category: {item.category}</Text>
         <View style={styles.buttonContainer}>
-          <Button style={styles.button} mode="contained" contentStyle={styles.buttonContent} labelStyle={styles.buttonLabel}>
+          <Button
+            style={styles.button}
+            mode="contained"
+            contentStyle={styles.buttonContent}
+            labelStyle={styles.buttonLabel}>
             DETAIL
           </Button>
-          <Button style={styles.button} mode="contained" contentStyle={styles.buttonContent} labelStyle={styles.buttonLabel}>
+          <Button
+            style={styles.button}
+            mode="contained"
+            contentStyle={styles.buttonContent}
+            labelStyle={styles.buttonLabel}>
             ADD
           </Button>
-          <Button style={styles.button} mode="contained" contentStyle={styles.buttonContent} labelStyle={styles.buttonLabel}>
+          <Button
+            style={styles.button}
+            mode="contained"
+            contentStyle={styles.buttonContent}
+            labelStyle={styles.buttonLabel}>
             DELETE
           </Button>
         </View>
@@ -88,7 +93,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   infoContainer: {
-    flex:1,
+    flex: 1,
     flexShrink: 1,
   },
   header: {
@@ -121,25 +126,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 10,
     justifyContent: 'space-between',
-    gap:8,
+    gap: 8,
   },
   button: {
     borderRadius: 1,
     //width:50,
     backgroundColor: '#2296f3',
   },
-  buttonContent:{
-    paddingHorizontal:0,
-    paddingVertical:0,
-    height:35,
+  buttonContent: {
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+    height: 35,
   },
-  buttonLabel:{
-    color:'#fff',
-    paddingHorizontal:0,
-    paddingVertical:0,
-    marginHorizontal:0,
-    marginVertical:0,
-    lineHeight:12,
+  buttonLabel: {
+    color: '#fff',
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+    marginHorizontal: 0,
+    marginVertical: 0,
+    lineHeight: 12,
   },
 });
 

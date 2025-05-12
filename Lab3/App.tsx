@@ -7,14 +7,14 @@
 
 import React from 'react';
 import Products from './Products/Products';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import Product_Add from './Products/Product_Add';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 function App(): React.JSX.Element {
-
   return (
-   <SafeAreaView>
-    <Products/>
-   </SafeAreaView>
+    <SafeAreaView>
+      <Product_Add/>
+    </SafeAreaView>
   );
 }
 
