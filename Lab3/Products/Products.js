@@ -30,7 +30,9 @@ const Products = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    if (isFocused) {
+      fetchData(); 
+    }
   }, []);
 
   const handleAddProduct = newProduct => {
@@ -53,6 +55,9 @@ const Products = () => {
         <Text style={styles.text}>Category: {item.category}</Text>
         <View style={styles.buttonContainer}>
           <Button
+            onPress={
+              () => navigation.navigate('Product_Detail', {product: item})
+            }
             style={styles.button}
             mode="contained"
             contentStyle={styles.buttonContent}

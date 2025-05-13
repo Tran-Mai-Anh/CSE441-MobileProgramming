@@ -37,8 +37,7 @@ const Product_Add = () => {
       brand: brand,
       category: category,
       images: images,
-      thumbnail:
-        'https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp',
+      thumbnail: 'https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp',
     };
 
     fetch('https://dummyjson.com/products/add', {
