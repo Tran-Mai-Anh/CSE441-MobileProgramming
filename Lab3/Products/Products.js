@@ -1,3 +1,4 @@
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {View, Text, FlatList, Image, StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
@@ -5,9 +6,14 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 const Products = () => {
   const [data, setData] = useState([]);
-  const filePath = 'https://dummyjson.com/products/';
 
-  useEffect(() => {
+  const navigation = useNavigation();
+  const isFocused = useIsFocused();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchData = () => {
+    const filePath = 'https://dummyjson.com/products/';
     fetch(filePath)
       .then(response => {
         if (!response.ok) {
@@ -21,7 +27,15 @@ const Products = () => {
       .catch(error => {
         console.error('Error fetching data:', error);
       });
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
+
+  const handleAddProduct = newProduct => {
+    setData(prevData => [newProduct, ...prevData]);
+  };
 
   const renderItem = ({item}) => (
     <View style={styles.itemContainer}>
@@ -46,6 +60,11 @@ const Products = () => {
             DETAIL
           </Button>
           <Button
+            onPress={() =>
+              navigation.navigate('Product_Add', {
+                onAddProduct: handleAddProduct,
+              })
+            }
             style={styles.button}
             mode="contained"
             contentStyle={styles.buttonContent}
@@ -80,7 +99,7 @@ const Products = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
     padding: 25,
     backgroundColor: '#fff',
   },
@@ -130,7 +149,6 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 1,
-    //width:50,
     backgroundColor: '#2296f3',
   },
   buttonContent: {

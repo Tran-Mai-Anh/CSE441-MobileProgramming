@@ -1,5 +1,7 @@
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {useState} from 'react';
 import {
+  Alert,
   FlatList,
   ScrollView,
   StyleSheet,
@@ -20,7 +22,25 @@ const Product_Add = () => {
   const [category, setCategory] = useState('');
   const [images, setImages] = useState('');
 
+  const navigation = useNavigation();
+  const route = useRoute();
+
   const handleSubmit = () => {
+    const newProduct = {
+      id: Date.now().toString(),
+      title: title,
+      description: description,
+      price: price,
+      discountPercentage: discountPercentage,
+      rating: rating,
+      stock: stock,
+      brand: brand,
+      category: category,
+      images: images,
+      thumbnail:
+        'https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp',
+    };
+
     fetch('https://dummyjson.com/products/add', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -37,8 +57,18 @@ const Product_Add = () => {
       }),
     })
       .then(res => res.json())
-      .then(console.log);
-    Alert.alert('Add successful');
+      //.then(console.log);
+      .then(data => {
+        console.log(data);
+        Alert.alert('Add successful');
+        const onAddProduct = route.params?.onAddProduct;
+        console.log(onAddProduct);
+        if (onAddProduct) {
+          onAddProduct(newProduct);
+        }
+        navigation.goBack();
+      });
+    //Alert.alert('Add successful');
   };
 
   return (
@@ -54,45 +84,42 @@ const Product_Add = () => {
         <Text style={styles.title}>Description</Text>
         <TextInput
           onChangeText={setDescription}
-          keyboardType="numeric"
           style={styles.input}
           underlineColor="#fffbfe"
           placeholder="Enter description"></TextInput>
         <Text style={styles.title}>Price</Text>
         <TextInput
-          onChangeText={setDiscountPercentage}
-          keyboardType="numeric"
+          onChangeText={setPrice}
           style={styles.input}
           underlineColor="#fffbfe"
           placeholder="Enter price"></TextInput>
         <Text style={styles.title}>Discount Percentage</Text>
         <TextInput
-          onChangeText={setRating}
-          keyboardType="numeric"
+          onChangeText={setDiscountPercentage}
           style={styles.input}
           underlineColor="#fffbfe"
           placeholder="Enter discount percentage"></TextInput>
         <Text style={styles.title}>Rating</Text>
         <TextInput
-          onChangeText={setStock}
-          keyboardType="numeric"
+          onChangeText={setRating}
           style={styles.input}
           underlineColor="#fffbfe"
           placeholder="Enter rating"></TextInput>
         <Text style={styles.title}>Stock</Text>
         <TextInput
-          onChangeText={setBrand}
+          onChangeText={setStock}
           style={styles.input}
           underlineColor="#fffbfe"
           placeholder="Enter stock"></TextInput>
         <Text style={styles.title}>Brand</Text>
         <TextInput
-          onChangeText={setCategory}
+          onChangeText={setBrand}
           style={styles.input}
           underlineColor="#fffbfe"
           placeholder="Enter brand"></TextInput>
         <Text style={styles.title}>Category</Text>
         <TextInput
+          onChangeText={setCategory}
           style={styles.input}
           underlineColor="#fffbfe"
           placeholder="Enter category"></TextInput>

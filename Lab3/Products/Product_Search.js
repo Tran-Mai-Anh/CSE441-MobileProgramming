@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 const Product_Search = () => {
   const [data, setData] = useState([]);
@@ -21,4 +21,15 @@ const Product_Search = () => {
         console.error('Error fetching data:', error);
       });
   };
+
+  useEffect(()=>{
+    searchProduct();
+  },[]);
+
+//   const renderProduct =({item})=>(
+
+//   )
+//   return
 };
+
+export default Product_Search;
