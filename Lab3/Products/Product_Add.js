@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import 'react-native-gesture-handler';
 
 const Product_Add = () => {
   const [title, setTitle] = useState('');
