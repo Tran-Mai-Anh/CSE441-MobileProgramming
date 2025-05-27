@@ -1,0 +1,127 @@
+import {Alert, StatusBar} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {
+  red100,
+  white,
+} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useEffect, useState} from 'react';
+import {Button} from 'react-native-paper';
+import {FlatList} from 'react-native-gesture-handler';
+import axios from 'axios';
+import {useFocusEffect} from '@react-navigation/native';
+import React from 'react';
+
+export default function Home({navigation}) {
+  const [service, setService] = useState([]);
+
+  async function getService() {
+    const response = await axios.get(
+      'https://kami-backend-5rs0.onrender.com/services',
+    );
+    console.log(response.data);
+    setService(response.data);
+  }
+
+  useFocusEffect(() => {
+    React.useCallback(() => {
+      console.log('Screen focused');
+      getService();
+      return () => {};
+    }, []);
+  });
+
+  const renderItem = ({item}) => (
+    <View style={styles.containerCategory}>
+      <Text style={styles.titleList}>{item.name}</Text>
+      <Text>
+        {item.price.toLocaleString('vi-VN')}{' '}
+        <Text style={styles.currency}>đ</Text>
+      </Text>
+    </View>
+  );
+
+  return (
+    <SafeAreaView>
+      <StatusBar barStyle={'light-content'}></StatusBar>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>HUYỀN TRINH</Text>
+          <Icon name="user-circle" size={24} color="white" />
+        </View>
+        <Image
+          style={styles.image}
+          source={require('./assets/images/logo.jpg')}
+        />
+        <View style={styles.containerList}>
+          <Text style={styles.titleList}>Danh sách dịch vụ</Text>
+          <Icon
+            name="plus-circle"
+            size={30}
+            color="#ef536d"
+            onPress={() => navigation.navigate('AddService')}
+          />
+        </View>
+        <FlatList
+          data={service}
+          keyExtractor={item => item._id}
+          renderItem={renderItem}
+          style={styles.flatList}
+        />
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+  },
+  header: {
+    backgroundColor: '#ef536d',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    textAlignVertical: 'center',
+    height: 50,
+  },
+  title: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  image: {
+    marginHorizontal: 85,
+    color: 'red',
+  },
+  containerList: {
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    marginBottom: 10,
+  },
+  titleList: {
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  containerCategory: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+    borderColor: '#e7e7e7',
+    borderWidth: 2,
+    borderRadius: 10,
+    marginBottom: 10,
+    marginHorizontal: 20,
+  },
+  currency: {
+    textDecorationLine: 'underline',
+  },
+  flatList: {
+    marginBottom: 330,
+  },
+});
