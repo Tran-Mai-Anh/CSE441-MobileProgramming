@@ -1,4 +1,4 @@
-import {Alert, StatusBar} from 'react-native';
+import {Alert, Pressable, StatusBar} from 'react-native';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
@@ -12,34 +12,32 @@ import {FlatList} from 'react-native-gesture-handler';
 import axios from 'axios';
 import {useFocusEffect} from '@react-navigation/native';
 import React from 'react';
+import { Service } from './interfaces';
 
 export default function Home({navigation}) {
-  const [service, setService] = useState([]);
+  const [service, setService] = useState<Service[]>([]);
 
-  async function getService() {
-    const response = await axios.get(
-      'https://kami-backend-5rs0.onrender.com/services',
-    );
-    console.log(response.data);
-    setService(response.data);
-  }
+  useEffect(() => {
+    async function getService() {
+      const response = await axios.get(
+        'https://kami-backend-5rs0.onrender.com/services',
+      );
+      console.log(response.data);
+      setService(response.data);
+    }
+    getService();
+  }, [navigation]);
 
-  useFocusEffect(() => {
-    React.useCallback(() => {
-      console.log('Screen focused');
-      getService();
-      return () => {};
-    }, []);
-  });
-
-  const renderItem = ({item}) => (
-    <View style={styles.containerCategory}>
-      <Text style={styles.titleList}>{item.name}</Text>
-      <Text>
-        {item.price.toLocaleString('vi-VN')}{' '}
-        <Text style={styles.currency}>đ</Text>
-      </Text>
-    </View>
+  const renderItem = (item:Service) => (
+    <Pressable onPress={() => navigation.navigate('ServiceDetail',item)}>
+      <View style={styles.containerCategory}>
+        <Text style={styles.titleList}>{item.name}</Text>
+        <Text>
+          {item.price.toLocaleString('vi-VN')}{' '}
+          <Text style={styles.currency}>đ</Text>
+        </Text>
+      </View>
+    </Pressable>
   );
 
   return (
@@ -66,7 +64,7 @@ export default function Home({navigation}) {
         <FlatList
           data={service}
           keyExtractor={item => item._id}
-          renderItem={renderItem}
+          renderItem={({item})=>renderItem(item)}
           style={styles.flatList}
         />
       </View>

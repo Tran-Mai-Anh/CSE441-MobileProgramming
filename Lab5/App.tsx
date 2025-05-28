@@ -28,33 +28,71 @@ import {
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import Login from './Login';
+import Login from './Login.tsx';
 import Home from './Home';
 import AddService from './AddService';
 import ServiceDetail from './ServiceDetail';
 import HomeTab from './HomeTab';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {RootStackParamList} from './RootStackParamList.ts';
+import EditService from './EditService.tsx';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
     // <StatusBar backgroundColor={"blue"} barStyle={'dark-content'}/>
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{headerShown: false}}
-        initialRouteName="Login">
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="HomeTab" component={HomeTab} />
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="HomeTab"
+          component={HomeTab}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name="AddService"
           component={AddService}
           options={{
-            headerShown: true,
             headerTintColor: 'white',
             headerStyle: {
               backgroundColor: '#ef536d',
             },
           }}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerBackTitle: 'HomeTab',
+            headerStyle: {
+              backgroundColor: '#EF506B',
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              color: '#fff',
+              fontWeight: 'bold',
+            },
+          }}
+          name="ServiceDetail"
+          component={ServiceDetail}
+        />
+        <Stack.Screen
+          options={{
+            headerStyle: {
+              backgroundColor: '#EF506B',
+            },
+            headerTintColor: 'white',
+          }}
+          name="EditService"
+          component={EditService}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -19,44 +19,23 @@ export default function Login({navigation}) {
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
 
-  const multiSet = async (phone, password, token) => {
-    const firstPair = ['phone', phone];
-    const secondPair = ['password', password];
-    const thirdPair = ['token', token];
-    try {
-      await AsyncStorage.multiSet([firstPair, secondPair, thirdPair]);
-    } catch (e) {
-      //save error
-    }
-    console.log('Done.');
-  };
-
   async function handleLogin() {
-    const response = await axios.post(
-      'https://kami-backend-5rs0.onrender.com/auth',
-      {
-        phone,
-        password,
-      },
-    );
-    if (response.data && response.data.token) {
-      await multiSet(phone, password, response.data.token);
-      navigation.navigate('HomeTab');
-    } else {
-      Alert.alert(JSON.stringify('No data'));
+    try {
+      const response = await axios.post(
+        'https://kami-backend-5rs0.onrender.com/auth',
+        {
+          phone,
+          password,
+        },
+      );
+      if(response.status ==200){
+        await AsyncStorage.setItem('token',response.data.token);
+        navigation.navigate('HomeTab');
+      }
+    } catch (e) {
+      console.error(e);
     }
-    console.log(response.data);
   }
-
-  useEffect(() => {
-    async function setData() {
-      const values = await AsyncStorage.multiGet(['phone', 'password']);
-      console.log(values);
-      setPhone(values[0][1]);
-      setPassword(values[1][1]);
-    }
-    setData();
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -73,7 +52,7 @@ export default function Login({navigation}) {
         right={<TextInput.Affix text={`${phone.length} /10`} />}
       />
       <TextInput
-      value={password}
+        value={password}
         secureTextEntry={hidePassword}
         onChangeText={value => {
           setPassword(value);

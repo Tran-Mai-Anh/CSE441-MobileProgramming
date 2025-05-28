@@ -1,21 +1,21 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './Home';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useRoute } from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
-export default function HomeTab(){
+export default function HomeTab() {
   const route = useRoute();
   return (
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: 'black',
+        tabBarActiveTintColor: '#ef536d',
         tabBarInactiveTintColor: 'gray',
         headerShown: false,
       }}>
-      <Tab.Screen   
+      <Tab.Screen
         name="Home"
         component={Home}
         options={{
@@ -23,6 +23,7 @@ export default function HomeTab(){
           tabBarIcon: ({color, size}) => (
             <Icon name="home" size={size} color={color} />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -37,7 +38,7 @@ export default function HomeTab(){
       />
       <Tab.Screen
         name="Customer"
-        component={Home}    
+        component={Home}
         options={{
           tabBarLabel: 'Customer',
           tabBarIcon: ({color, size}) => (

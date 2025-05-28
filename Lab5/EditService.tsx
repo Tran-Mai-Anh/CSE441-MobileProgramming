@@ -4,68 +4,66 @@ import {Alert, StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Button, TextInput} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {EditServiceProps} from './ScreenType';
 
-export default function AddService() {
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState(0);
-  const [token, setToken]=useState(undefined);
-  async function addService() {
-    console.log(token);
-    try{
-      const response = await axios.post(
-      'https://kami-backend-5rs0.onrender.com/services',
-      {
-        name,
-        price,
-      },{headers:{Authorization:`Bearer ${token}`}}
-    );
-          console.log(response.status);
+export default function EditService({navigation, route}: EditServiceProps) {
+  const item = route.params;
+  const [name, setName] = useState(item.name);
+  const [price, setPrice] = useState(item.price.toString());
+  const [token, setToken] = useState<string|null>(null);
 
-    }catch(e){
-      console.log('Error');
+  async function update() {
+    try {
+      const response = await axios.put(
+        `https://kami-backend-5rs0.onrender.com/services/${item._id}`,
+        {
+          name,
+          price: Number(price),
+        },
+        {headers: {Authorization: `Bearer ${token}`}},
+      );
+    } catch (e) {
+      console.error(e);
     }
-
-    Alert.alert(JSON.stringify(response.data));
   }
-  useEffect(()=>{
-    AsyncStorage.getItem('token').then((val)=>{setToken(val)})
-  },[]);
+
+  useEffect(() => {
+    AsyncStorage.getItem('token').then(val => {
+      setToken(val);
+    });
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text>Service</Text>
         <Text style={styles.title}>Service name *</Text>
         <TextInput
           onChangeText={value => {
             setName(value);
           }}
-          style={{marginBottom:15,}}
+          value={name}
+          style={{marginBottom: 15}}
           theme={{roundness: 10}}
           mode="outlined"
-          label="Input a service name"
           right={<TextInput.Affix text="/100" />}
         />
         <Text style={styles.title}>Price *</Text>
         <TextInput
-            onChangeText={value => {
-              const price = parseFloat(value);
-              if(isNaN(price)){
-                return;
-              }
-              setPrice(value);
-            }}
-          style={{marginBottom:10,}}
+          onChangeText={value => {
+            setPrice(value);
+          }}
+          value={price}
+          style={{marginBottom: 10}}
           theme={{roundness: 10}}
           mode="outlined"
-          label="Price"
           right={<TextInput.Affix text="/100" />}
         />
         <Button
+          onPress={() => update()}
           mode="contained"
           style={styles.button}
-          labelStyle={styles.label}
-          onPress={() => addService()}>
-          Add
+          labelStyle={styles.label}>
+          Update
         </Button>
       </View>
     </SafeAreaView>
