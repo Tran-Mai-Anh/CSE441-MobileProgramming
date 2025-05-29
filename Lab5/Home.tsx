@@ -120,6 +120,6 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   flatList: {
-    marginBottom: 330,
+    marginBottom: 390,
   },
 });
