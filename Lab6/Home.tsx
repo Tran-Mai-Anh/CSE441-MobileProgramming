@@ -56,7 +56,7 @@ export default function Home({navigation}) {
           <Text style={styles.titleList}>Danh sách dịch vụ</Text>
           <Icon
             name="plus-circle"
-            size={30}
+            size={40}
             color="#ef536d"
             onPress={() => navigation.navigate('AddService')}
           />

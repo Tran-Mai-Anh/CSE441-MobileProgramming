@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
-import {Alert, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Alert, Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {Icon} from 'react-native-paper';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {ServiceDetailProps} from './ScreenType';
 import {Button} from 'react-native-paper';
 import axios from 'axios';
@@ -32,18 +31,18 @@ export default function ServiceDetail({navigation, route}: ServiceDetailProps) {
       'Warning',
       'Are you sure you want to remove this service? This operation cannot be returned',
       [
-        {text: 'Cancel', style: 'cancel'},
         {
           text: 'Delete',
           style: 'destructive',
           onPress: () => handleDelete(),
         },
+        {text: 'Cancel', style: 'cancel'},
       ],
     );
   }
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View style={styles.content}>
         <Text style={styles.text}>
           <Text style={styles.title}>Service name:</Text> {item.name}
         </Text>
@@ -77,6 +76,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flex: 1,
     paddingHorizontal: 20,
+  },
+  content:{
+    paddingTop:10,
   },
   title: {
     color: 'black',

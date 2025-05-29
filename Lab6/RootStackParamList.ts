@@ -6,5 +6,6 @@ export type RootStackParamList = {
   AddService: undefined;
   ServiceDetail: Service;
   EditService: Service;
+  AddCustomer: undefined;
 };
 // định nghĩa kiểu dữ liệu nhận vào của màn hình

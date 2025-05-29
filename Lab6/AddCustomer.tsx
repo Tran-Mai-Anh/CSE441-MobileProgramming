@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
 
 export default function AddService() {
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
+    const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [token, setToken] = useState<string | null>(null);
 
   async function addService() {

@@ -3,10 +3,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Customer} from './interfaces';
 import axios from 'axios';
 import {FlatList, Text} from 'react-native-gesture-handler';
-import {StyleSheet, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import {Icon} from 'react-native-paper';
 
-export default function CustomerScreen() {
+export default function CustomerScreen({navigation}) {
   const [customer, setCustomer] = useState<Customer[]>([]);
 
   useEffect(() => {
@@ -33,12 +33,14 @@ export default function CustomerScreen() {
         </Text>
         <Text>
           <Text style={styles.title}>Total money: </Text>
-          <Text style={styles.price}>{item.totalSpent} <Text style={styles.currency}>đ</Text></Text>
+          <Text style={styles.price}>
+            {item.totalSpent} <Text style={styles.currency}>đ</Text>
+          </Text>
         </Text>
       </View>
       <View style={styles.containerStatus}>
         <Icon source="crown" size={24} color="#ef536d" />
-        <Text>{item.loyalty}</Text>
+        <Text style={styles.loyalty}>{item.loyalty}</Text>
       </View>
     </View>
   );
@@ -49,12 +51,19 @@ export default function CustomerScreen() {
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Customer</Text>
         </View>
-        <FlatList
-          data={customer}
-          keyExtractor={item => item._id}
-          renderItem={({item}) => renderItem(item)}
-          style={styles.flatList}
-        />
+        <View>
+          <FlatList
+            data={customer}
+            keyExtractor={item => item._id}
+            renderItem={({item}) => renderItem(item)}
+            style={styles.flatList}
+          />
+          <View style={styles.add}>
+            <Pressable onPress={() => navigation.navigate('AddCustomer')}>
+              <Icon source="plus-circle" size={50} color="#ef536d" />
+            </Pressable>
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -63,6 +72,7 @@ export default function CustomerScreen() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
+    flex: 1,
   },
   headerTitle: {
     color: 'white',
@@ -91,24 +101,35 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   flatList: {
-    marginBottom: 80,
-    marginTop: 15,
+    height: 630,
+    paddingTop: 20,
   },
-  title:{
-    color:'#828282',
-    fontWeight:'bold',
+  title: {
+    color: '#828282',
+    fontWeight: 'bold',
   },
-  price:{
-    color:'#ef536d',
-    fontWeight:'bold',
+  price: {
+    color: '#ef536d',
+    fontWeight: 'bold',
   },
-  currency:{
-    color:'#ef536d',
-    fontWeight:'bold',
-    textDecorationLine:'underline',
+  currency: {
+    color: '#ef536d',
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
   },
-  containerStatus:{
-    justifyContent:'center',
-    alignContent:'center',
-  }
+  containerStatus: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  loyalty: {
+    color: '#ef536d',
+    fontWeight: 'bold',
+  },
+  add: {
+    height: 100,
+    paddingRight: 20,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+  },
 });

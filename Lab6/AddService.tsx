@@ -1,9 +1,8 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {useEffect, useState} from 'react';
-import {Alert, StyleSheet, Text, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function AddService() {
   const [name, setName] = useState('');
@@ -14,7 +13,7 @@ export default function AddService() {
     console.log(token);
     try {
       const response = await axios.post(
-        'https://kami-backend-5rs0.onrender.com/services',
+        ' https://kami-backend-5rs0.onrender.com/customers',
         {
           name,
           price: Number(price),
@@ -34,7 +33,6 @@ export default function AddService() {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text>Service</Text>
         <Text style={styles.title}>Service name *</Text>
         <TextInput
           onChangeText={value => {

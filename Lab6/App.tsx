@@ -36,6 +36,7 @@ import HomeTab from './HomeTab';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {RootStackParamList} from './RootStackParamList.ts';
 import EditService from './EditService.tsx';
+import AddCustomer from './AddCustomer.tsx';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -94,6 +95,12 @@ export default function App() {
           name="EditService"
           component={EditService}
         />
+        <Stack.Screen name='AddCustomer' component={AddCustomer} options={{
+          headerStyle:{
+            backgroundColor:'#EF506B',
+          },
+          headerTintColor:'white',
+        }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

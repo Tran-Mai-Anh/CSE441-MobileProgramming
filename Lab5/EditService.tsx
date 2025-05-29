@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {useEffect, useState} from 'react';
-import {Alert, StyleSheet, Text, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {EditServiceProps} from './ScreenType';
@@ -42,7 +41,8 @@ export default function EditService({navigation, route}: EditServiceProps) {
             setName(value);
           }}
           value={name}
-          style={{marginBottom: 15}}
+          label={'Service name'}
+          style={{marginBottom: 20}}
           theme={{roundness: 10}}
           mode="outlined"
           right={<TextInput.Affix text="/100" />}
@@ -53,6 +53,7 @@ export default function EditService({navigation, route}: EditServiceProps) {
             setPrice(value);
           }}
           value={price}
+          label={'Price'}
           style={{marginBottom: 10}}
           theme={{roundness: 10}}
           mode="outlined"
