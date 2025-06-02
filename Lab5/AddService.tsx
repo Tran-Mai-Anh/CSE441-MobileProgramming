@@ -13,7 +13,7 @@ export default function AddService() {
     console.log(token);
     try {
       const response = await axios.post(
-        ' https://kami-backend-5rs0.onrender.com/customers',
+        'https://kami-backend-5rs0.onrender.com/services',
         {
           name,
           price: Number(price),
@@ -42,7 +42,6 @@ export default function AddService() {
           theme={{roundness: 10}}
           mode="outlined"
           label="Input a service name"
-          right={<TextInput.Affix text="/100" />}
         />
         <Text style={styles.title}>Price *</Text>
         <TextInput
@@ -57,7 +56,6 @@ export default function AddService() {
           theme={{roundness: 10}}
           mode="outlined"
           label="Price"
-          right={<TextInput.Affix text="/100" />}
         />
         <Button
           mode="contained"

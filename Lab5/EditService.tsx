@@ -45,7 +45,6 @@ export default function EditService({navigation, route}: EditServiceProps) {
           style={{marginBottom: 20}}
           theme={{roundness: 10}}
           mode="outlined"
-          right={<TextInput.Affix text="/100" />}
         />
         <Text style={styles.title}>Price *</Text>
         <TextInput
@@ -57,7 +56,6 @@ export default function EditService({navigation, route}: EditServiceProps) {
           style={{marginBottom: 10}}
           theme={{roundness: 10}}
           mode="outlined"
-          right={<TextInput.Affix text="/100" />}
         />
         <Button
           onPress={() => update()}

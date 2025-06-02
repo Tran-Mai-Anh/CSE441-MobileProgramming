@@ -1,12 +1,12 @@
 import {Pressable, StatusBar} from 'react-native';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useEffect, useState} from 'react';
 import {FlatList} from 'react-native-gesture-handler';
 import axios from 'axios';
 import React from 'react';
 import { Service } from './interfaces';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function Home({navigation}) {
   const [service, setService] = useState<Service[]>([]);
@@ -40,7 +40,7 @@ export default function Home({navigation}) {
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>HUYỀN TRINH</Text>
-          <Icon name="user-circle" size={24} color="white" />
+          <Icon name="person-circle" size={40} color="white" />
         </View>
         <Image
           style={styles.image}
@@ -48,12 +48,7 @@ export default function Home({navigation}) {
         />
         <View style={styles.containerList}>
           <Text style={styles.titleList}>Danh sách dịch vụ</Text>
-          <Icon
-            name="plus-circle"
-            size={40}
-            color="#ef536d"
-            onPress={() => navigation.navigate('AddService')}
-          />
+          <Icon name="add-circle" size={50} color="#ef536d" onPress={() => navigation.navigate('AddService')}/>
         </View>
         <FlatList
           data={service}

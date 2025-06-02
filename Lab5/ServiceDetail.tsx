@@ -1,5 +1,12 @@
 import {useEffect, useState} from 'react';
-import {Alert, Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {Icon} from 'react-native-paper';
 import {ServiceDetailProps} from './ScreenType';
 import {Button} from 'react-native-paper';
@@ -13,7 +20,7 @@ export default function ServiceDetail({navigation, route}: ServiceDetailProps) {
     navigation.setOptions({
       headerRight: () => (
         <Pressable style={styles.icon} onPress={() => deleteModal()}>
-          <Icon source="dots-vertical" size={20} color="white" />
+          <Icon source="dots-vertical" size={30} color="white" />
         </Pressable>
       ),
     });
@@ -54,10 +61,14 @@ export default function ServiceDetail({navigation, route}: ServiceDetailProps) {
           <Text style={styles.title}>Creator:</Text> {item.createdBy}
         </Text>
         <Text style={styles.text}>
-          <Text style={styles.title}>Time:</Text> {item.createdAt}
+          <Text style={styles.title}>Time:</Text> {' '}
+          {new Date(item.createdAt).toLocaleDateString('vi-VN')}{' '}
+          {new Date(item.createdAt).toLocaleTimeString('vi-VN')}
         </Text>
         <Text style={styles.text}>
-          <Text style={styles.title}>Final update:</Text> {item.updatedAt}
+          <Text style={styles.title}>Final update:</Text>{' '}
+          {new Date(item.updatedAt).toLocaleDateString('vi-VN')}{' '}
+          {new Date(item.updatedAt).toLocaleTimeString('vi-VN')}
         </Text>
         <Button
           onPress={() => navigation.navigate('EditService', item)}
@@ -77,8 +88,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
   },
-  content:{
-    paddingTop:10,
+  content: {
+    paddingTop: 10,
   },
   title: {
     color: 'black',
