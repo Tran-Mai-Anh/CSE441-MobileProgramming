@@ -1,16 +1,10 @@
-import {Alert, Pressable, StatusBar} from 'react-native';
+import {Pressable, StatusBar} from 'react-native';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {
-  red100,
-  white,
-} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useEffect, useState} from 'react';
-import {Button} from 'react-native-paper';
 import {FlatList} from 'react-native-gesture-handler';
 import axios from 'axios';
-import {useFocusEffect} from '@react-navigation/native';
 import React from 'react';
 import { Service } from './interfaces';
 
@@ -41,7 +35,7 @@ export default function Home({navigation}) {
   );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor:'#ef536d'}}>
       <StatusBar barStyle={'light-content'}></StatusBar>
       <View style={styles.container}>
         <View style={styles.header}>
@@ -120,6 +114,6 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   flatList: {
-    marginBottom: 330,
+    marginBottom: 390,
   },
 });

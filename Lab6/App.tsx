@@ -37,6 +37,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {RootStackParamList} from './RootStackParamList.ts';
 import EditService from './EditService.tsx';
 import AddCustomer from './AddCustomer.tsx';
+import TransactionDetail from './TransactionDetail.tsx';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -64,6 +65,7 @@ export default function App() {
           component={AddService}
           options={{
             headerTintColor: 'white',
+            headerTitle:'Service',
             headerStyle: {
               backgroundColor: '#ef536d',
             },
@@ -72,7 +74,6 @@ export default function App() {
         <Stack.Screen
           options={{
             headerShown: true,
-            headerBackTitle: 'HomeTab',
             headerStyle: {
               backgroundColor: '#EF506B',
             },
@@ -81,6 +82,7 @@ export default function App() {
               color: '#fff',
               fontWeight: 'bold',
             },
+            headerTitle:'Service detail',
           }}
           name="ServiceDetail"
           component={ServiceDetail}
@@ -91,6 +93,7 @@ export default function App() {
               backgroundColor: '#EF506B',
             },
             headerTintColor: 'white',
+            headerTitle:'Service',
           }}
           name="EditService"
           component={EditService}
@@ -99,8 +102,25 @@ export default function App() {
           headerStyle:{
             backgroundColor:'#EF506B',
           },
+          headerTitle:'Add customer',
           headerTintColor:'white',
         }}/>
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: '#EF506B',
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              color: '#fff',
+              fontWeight: 'bold',
+            },
+            headerTitle:'Transaction detail',
+          }}
+          name="TransactionDetail"
+          component={TransactionDetail}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

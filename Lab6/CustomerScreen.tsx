@@ -3,8 +3,9 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Customer} from './interfaces';
 import axios from 'axios';
 import {FlatList, Text} from 'react-native-gesture-handler';
-import {Pressable, StyleSheet, View} from 'react-native';
-import {Icon} from 'react-native-paper';
+import {Pressable, StatusBar, StyleSheet, View} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Foundation from 'react-native-vector-icons/Foundation';
 
 export default function CustomerScreen({navigation}) {
   const [customer, setCustomer] = useState<Customer[]>([]);
@@ -34,33 +35,33 @@ export default function CustomerScreen({navigation}) {
         <Text>
           <Text style={styles.title}>Total money: </Text>
           <Text style={styles.price}>
-            {item.totalSpent} <Text style={styles.currency}>đ</Text>
+            {item.totalSpent.toLocaleString('vi-VN')}{' '}
+            <Text style={styles.currency}>đ</Text>
           </Text>
         </Text>
       </View>
       <View style={styles.containerStatus}>
-        <Icon source="crown" size={24} color="#ef536d" />
-        <Text style={styles.loyalty}>{item.loyalty}</Text>
+        <Foundation name="crown" size={25} color="#ef536d" />
+        <Text style={styles.loyalty}>{item.loyalty.charAt(0).toUpperCase() + item.loyalty.slice(1)}</Text>
       </View>
     </View>
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View>
+    <SafeAreaView style={{backgroundColor: '#ef536d'}}>
+      <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Customer</Text>
         </View>
-        <View>
+        <View style={styles.flatList}>
           <FlatList
             data={customer}
             keyExtractor={item => item._id}
             renderItem={({item}) => renderItem(item)}
-            style={styles.flatList}
           />
           <View style={styles.add}>
             <Pressable onPress={() => navigation.navigate('AddCustomer')}>
-              <Icon source="plus-circle" size={50} color="#ef536d" />
+              <Icon name="add-circle" size={50} color="#ef536d" />
             </Pressable>
           </View>
         </View>
@@ -72,7 +73,7 @@ export default function CustomerScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    flex: 1,
+    //flex: 1,
   },
   headerTitle: {
     color: 'white',
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
   containerCustomer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: 20,
+    paddingLeft: 10,
     paddingRight: 50,
     paddingVertical: 15,
     borderColor: '#e7e7e7',
@@ -101,7 +102,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   flatList: {
-    height: 630,
+    paddingBottom: 130,
+    //flex:1,
     paddingTop: 20,
   },
   title: {
@@ -127,9 +129,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   add: {
-    height: 100,
+    paddingTop: 30,
     paddingRight: 20,
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
+    position: 'absolute',
+    bottom: 140,
+    zIndex: 2,
+    right: 0,
   },
 });

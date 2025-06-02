@@ -1,8 +1,10 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './Home';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {useRoute} from '@react-navigation/native';
 import CustomerScreen from './CustomerScreen';
+import Setting from './Setting';
+import Icon from 'react-native-vector-icons/Ionicons';
+import TransactionScreen from './TransactionScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,19 +23,27 @@ export default function HomeTab() {
         component={Home}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({color, size}) => (
-            <Icon name="home" size={size} color={color} />
+          tabBarIcon: ({focused, color, size}) => (
+            <Icon
+              name={focused ? 'home' : 'home-outline'}
+              size={size}
+              color={color}
+            />
           ),
           headerShown: false,
         }}
       />
       <Tab.Screen
         name="Transaction"
-        component={Home}
+        component={TransactionScreen}
         options={{
           tabBarLabel: 'Transaction',
-          tabBarIcon: ({color, size}) => (
-            <Icon name="money" size={size} color={color} />
+          tabBarIcon: ({focused, color, size}) => (
+            <Icon
+              name={focused ? 'cash' : 'cash-outline'}
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
@@ -42,18 +52,26 @@ export default function HomeTab() {
         component={CustomerScreen}
         options={{
           tabBarLabel: 'Customer',
-          tabBarIcon: ({color, size}) => (
-            <Icon name="user" size={size} color={color} />
+          tabBarIcon: ({focused, color, size}) => (
+            <Icon
+              name={focused ? 'people' : 'people-outline'}
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
       <Tab.Screen
         name="Setting"
-        component={Home}
+        component={Setting}
         options={{
           tabBarLabel: 'Setting',
-          tabBarIcon: ({color, size}) => (
-            <Icon name="gear" size={size} color={color} />
+          tabBarIcon: ({focused, color, size}) => (
+            <Icon
+              name={focused ? 'settings' : 'settings-outline'}
+              size={size}
+              color={color}
+            />
           ),
         }}
       />

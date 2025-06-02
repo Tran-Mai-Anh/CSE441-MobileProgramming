@@ -1,4 +1,4 @@
-import {Customer, Service} from './interfaces';
+import {Customer, Service, Transaction} from './interfaces';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -7,5 +7,6 @@ export type RootStackParamList = {
   ServiceDetail: Service;
   EditService: Service;
   AddCustomer: undefined;
+  TransactionDetail: Transaction;
 };
 // định nghĩa kiểu dữ liệu nhận vào của màn hình

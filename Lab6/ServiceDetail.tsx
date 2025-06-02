@@ -13,7 +13,7 @@ export default function ServiceDetail({navigation, route}: ServiceDetailProps) {
     navigation.setOptions({
       headerRight: () => (
         <Pressable style={styles.icon} onPress={() => deleteModal()}>
-          <Icon source="menu" size={20} color="white" />
+          <Icon source="dots-vertical" size={30} color="white" />
         </Pressable>
       ),
     });

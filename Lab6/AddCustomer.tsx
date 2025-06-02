@@ -1,22 +1,22 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
 
-export default function AddService() {
-    const [name, setName] = useState('');
+export default function AddCustomer() {
+  const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [token, setToken] = useState<string | null>(null);
 
-  async function addService() {
+  async function addCustomer() {
     console.log(token);
     try {
       const response = await axios.post(
-        ' https://kami-backend-5rs0.onrender.com/customers',
+        'https://kami-backend-5rs0.onrender.com/customers',
         {
           name,
-          price: Number(price),
+          phone: Number(phone),
         },
         {headers: {Authorization: `Bearer ${token}`}},
       );
@@ -33,7 +33,7 @@ export default function AddService() {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text style={styles.title}>Service name *</Text>
+        <Text style={styles.title}>Customer name *</Text>
         <TextInput
           onChangeText={value => {
             setName(value);
@@ -41,29 +41,27 @@ export default function AddService() {
           style={{marginBottom: 15}}
           theme={{roundness: 10}}
           mode="outlined"
-          label="Input a service name"
-          right={<TextInput.Affix text="/100" />}
+          label="Input your customer's name"
         />
-        <Text style={styles.title}>Price *</Text>
+        <Text style={styles.title}>Phone *</Text>
         <TextInput
           onChangeText={value => {
-            const price = parseFloat(value);
-            if (isNaN(price)) {
+            const phone = parseFloat(value);
+            if (isNaN(phone)) {
               return;
             }
-            setPrice(value);
+            setPhone(value);
           }}
           style={{marginBottom: 10}}
           theme={{roundness: 10}}
           mode="outlined"
-          label="Price"
-          right={<TextInput.Affix text="/100" />}
+          label="Input phone number"
         />
         <Button
           mode="contained"
           style={styles.button}
           labelStyle={styles.label}
-          onPress={() => addService()}>
+          onPress={() => addCustomer()}>
           Add
         </Button>
       </View>
