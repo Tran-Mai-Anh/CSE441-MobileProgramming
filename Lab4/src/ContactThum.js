@@ -1,41 +1,45 @@
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import React from 'react';
+import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import PropTypes from 'prop-types';
 
-const ContactThum = ({name, phone, avatar, textColor, onPress}) => {
-  const colorStyle = {
-    color: textColor,
-  };
-
+const ContactThum = ({ name, phone, avatar, textColor, onPress }) => {
+  const colorStyle = { color: textColor };
   const ImageContact = onPress ? TouchableOpacity : View;
 
   return (
     <View style={styles.container}>
       <ImageContact onPress={onPress}>
-        <Image source={{uri: avatar}} style={styles.avatar} />
+        <Image source={{ uri: avatar }} style={styles.avatar} />
       </ImageContact>
-      {name !== '' && <Text style={[styles.name, colorStyle]}>{name}</Text>}
-
+      {name !== '' && (
+        <Text style={[styles.name, colorStyle]}>{name}</Text>
+      )}
       {phone !== '' && (
         <View style={styles.phoneSection}>
-          <Icon name="phone" size={16} style={{color: textColor}} />
+          <Icon name="phone" size={16} style={{ color: textColor }} />
           <Text style={[styles.phone, colorStyle]}>{phone}</Text>
         </View>
       )}
     </View>
   );
 };
-export default ContactThum;
+
 ContactThum.propTypes = {
   name: PropTypes.string,
   avatar: PropTypes.string,
   phone: PropTypes.string,
+  textColor: PropTypes.string,
   onPress: PropTypes.func,
 };
+
 ContactThum.defaultProps = {
   name: '',
   phone: '',
   textColor: 'white',
   onPress: null,
 };
+
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 30,
@@ -53,7 +57,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 20,
     marginTop: 24,
-    margintBottom: 2,
+    marginBottom: 2,
     fontWeight: 'bold',
   },
   phoneSection: {
@@ -68,3 +72,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+export default ContactThum;

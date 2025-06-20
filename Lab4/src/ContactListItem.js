@@ -1,13 +1,11 @@
-import {Image, StyleSheet, TouchableHighlight, View} from 'react-native';
+import React from 'react';
+import { View, StyleSheet, TouchableHighlight, Text, Image } from 'react-native';
 
-const ContactListItem = ({name, avatar, phone, onPress}) => {
+const ContactListItem = ({ name, avatar, phone, onPress }) => {
   return (
-    <TouchableHighlight
-      underlayColor="grey"
-      styles={styles.container}
-      onPress={onPress}>
+    <TouchableHighlight underlayColor="grey" onPress={onPress}>
       <View style={styles.contactInfo}>
-        <Image source={{uri: avatar}} style={styles.avatar} />
+        <Image source={{ uri: avatar }} style={styles.avatar} />
         <View style={styles.details}>
           <Text style={styles.title}>{name}</Text>
           <Text style={styles.subtitle}>{phone}</Text>
@@ -16,11 +14,8 @@ const ContactListItem = ({name, avatar, phone, onPress}) => {
     </TouchableHighlight>
   );
 };
+
 const styles = StyleSheet.create({
-  container: {
-    paddingLeft: 50,
-    marginTop: 0,
-  },
   contactInfo: {
     flex: 1,
     flexDirection: 'row',
@@ -51,4 +46,5 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 });
+
 export default ContactListItem;
