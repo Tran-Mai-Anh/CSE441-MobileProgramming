@@ -2,14 +2,18 @@ import React, { useEffect } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import ContactListItem from './ContactListItem';
-import { fetchContactsSuccess } from './Store';
+import { fetchContactsSuccess, mapContacts } from './Store';
 
 const keyExtractor = ({ phone }) => phone;
 
 const fetchContacts = async () => {
-  const response = await fetch('https://randomuser.me/api/?results=50');
-  const contactData = await response.json();
-  return contactData.results.map(mapContacts);
+  try {
+    const response = await fetch('https://randomuser.me/api/?results=50');
+    const contactData = await response.json();
+    return contactData.results.map(mapContacts);
+  } catch (error) {
+    throw new Error('Lỗi khi lấy danh bạ từ API:', error);
+  }
 };
 
 const Contacts = ({ navigation }) => {
