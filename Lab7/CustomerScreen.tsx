@@ -22,29 +22,33 @@ export default function CustomerScreen({navigation}) {
   }, []);
 
   const renderItem = (item: Customer) => (
-    <View style={styles.containerCustomer}>
-      <View>
-        <Text>
-          <Text style={styles.title}>Customer: </Text>
-          {item.name}
-        </Text>
-        <Text>
-          <Text style={styles.title}>Phone: </Text>
-          {item.phone}
-        </Text>
-        <Text>
-          <Text style={styles.title}>Total money: </Text>
-          <Text style={styles.price}>
-            {item.totalSpent.toLocaleString('vi-VN')}{' '}
-            <Text style={styles.currency}>đ</Text>
+    <Pressable onPress={() => navigation.navigate('CustomerDetail', item)}>
+      <View style={styles.containerCustomer}>
+        <View>
+          <Text>
+            <Text style={styles.title}>Customer: </Text>
+            {item.name}
           </Text>
-        </Text>
+          <Text>
+            <Text style={styles.title}>Phone: </Text>
+            {item.phone}
+          </Text>
+          <Text>
+            <Text style={styles.title}>Total money: </Text>
+            <Text style={styles.price}>
+              {item.totalSpent.toLocaleString('vi-VN')}{' '}
+              <Text style={styles.currency}>đ</Text>
+            </Text>
+          </Text>
+        </View>
+        <View style={styles.containerStatus}>
+          <Foundation name="crown" size={25} color="#ef536d" />
+          <Text style={styles.loyalty}>
+            {item.loyalty.charAt(0).toUpperCase() + item.loyalty.slice(1)}
+          </Text>
+        </View>
       </View>
-      <View style={styles.containerStatus}>
-        <Foundation name="crown" size={25} color="#ef536d" />
-        <Text style={styles.loyalty}>{item.loyalty.charAt(0).toUpperCase() + item.loyalty.slice(1)}</Text>
-      </View>
-    </View>
+    </Pressable>
   );
 
   return (

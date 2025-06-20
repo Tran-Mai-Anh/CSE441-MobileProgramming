@@ -9,7 +9,7 @@ export default function EditService({navigation, route}: EditServiceProps) {
   const item = route.params;
   const [name, setName] = useState(item.name);
   const [price, setPrice] = useState(item.price.toString());
-  const [token, setToken] = useState<string|null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   async function update() {
     try {
