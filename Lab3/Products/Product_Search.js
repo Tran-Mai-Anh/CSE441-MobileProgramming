@@ -17,7 +17,7 @@ const Product_Search = () => {
 
   const searchProduct = () => {
     if (value !== '') {
-      const filePath = 'https://dummyjson.com/products/2';
+      const filePath = `https://dummyjson.com/products/search?q=${value}`;
       fetch(filePath)
         .then(response => {
           if (!response.ok) {
@@ -26,7 +26,7 @@ const Product_Search = () => {
           return response.json();
         })
         .then(d => {
-          setData(d);
+          setData(d.products);
         })
         .catch(error => {
           console.error('Error fetching data:', error);
