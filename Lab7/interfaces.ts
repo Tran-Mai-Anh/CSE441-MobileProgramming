@@ -20,6 +20,7 @@ export interface Customer {
   createdAt: string;
   updatedAt: string;
   __v: number;
+  transactions: Transaction;
 }
 
 export interface Transaction {

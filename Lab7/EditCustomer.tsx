@@ -1,68 +1,68 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {useEffect, useState} from 'react';
-import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { EditServiceProps } from './ScreenType';
 
-export default function EditService({navigation, route}: EditServiceProps) {
-  const item = route.params;
-  const [name, setName] = useState(item.name);
-  const [price, setPrice] = useState(item.price.toString());
+export default function EditCustomer() {
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [token, setToken] = useState<string | null>(null);
 
-  async function update() {
+  async function addCustomer() {
+    console.log(token);
     try {
-      const response = await axios.put(
-        `https://kami-backend-5rs0.onrender.com/services/${item._id}`,
+      const response = await axios.post(
+        'https://kami-backend-5rs0.onrender.com/customers',
         {
           name,
-          price: Number(price),
+          phone: Number(phone),
         },
         {headers: {Authorization: `Bearer ${token}`}},
       );
+      console.log(response.data);
     } catch (e) {
-      console.error(e);
+      console.log('Error');
     }
   }
-
   useEffect(() => {
     AsyncStorage.getItem('token').then(val => {
       setToken(val);
     });
   }, []);
-
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text style={styles.title}>Service name *</Text>
+        <Text style={styles.title}>Customer name *</Text>
         <TextInput
           onChangeText={value => {
             setName(value);
           }}
-          value={name}
-          label={'Service name'}
-          style={{marginBottom: 20}}
+          style={{marginBottom: 15}}
           theme={{roundness: 10}}
           mode="outlined"
+          label="Input your customer's name"
         />
-        <Text style={styles.title}>Price *</Text>
+        <Text style={styles.title}>Phone *</Text>
         <TextInput
           onChangeText={value => {
-            setPrice(value);
+            const phone = parseFloat(value);
+            if (isNaN(phone)) {
+              return;
+            }
+            setPhone(value);
           }}
-          value={price}
-          label={'Price'}
           style={{marginBottom: 10}}
           theme={{roundness: 10}}
           mode="outlined"
+          label="Input phone number"
         />
         <Button
-          onPress={() => update()}
           mode="contained"
           style={styles.button}
-          labelStyle={styles.label}>
-          Update
+          labelStyle={styles.label}
+          onPress={() => addCustomer()}>
+          Add
         </Button>
       </View>
     </SafeAreaView>

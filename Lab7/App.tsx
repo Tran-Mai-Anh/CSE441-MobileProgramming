@@ -29,16 +29,15 @@ import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Login from './Login.tsx';
-import Home from './Home';
-import AddService from './AddService';
-import ServiceDetail from './ServiceDetail';
-import HomeTab from './HomeTab';
+import AddService from './AddService.tsx';
+import HomeTab from './HomeTab.tsx';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {RootStackParamList} from './RootStackParamList.ts';
-import EditService from './EditService.tsx';
 import AddCustomer from './AddCustomer.tsx';
 import TransactionDetail from './TransactionDetail.tsx';
 import CustomerDetail from './CustomerDetail.tsx';
+import EditService from './EditService.tsx';
+import ServiceDetail from './ServiceDetail.tsx';
 
 const Stack = createStackNavigator<RootStackParamList>();
 

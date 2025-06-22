@@ -1,10 +1,10 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from './Home';
 import {useRoute} from '@react-navigation/native';
 import CustomerScreen from './CustomerScreen';
 import Setting from './Setting';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TransactionScreen from './TransactionScreen';
+import Home from './Home';
 
 const Tab = createBottomTabNavigator();
 

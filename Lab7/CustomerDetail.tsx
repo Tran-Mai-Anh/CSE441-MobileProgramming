@@ -3,7 +3,6 @@ import {CustomerDetailProps} from './ScreenType';
 import {useEffect, useState} from 'react';
 import {Icon} from 'react-native-paper';
 import axios from 'axios';
-import { Customer } from './interfaces';
 
 export default function CustomerDetail({
   navigation,
@@ -22,7 +21,7 @@ export default function CustomerDetail({
     });
 
     async function getCustomer() {
-      const response = await axios.post(
+      const response = await axios.get(
         `https://kami-backend-5rs0.onrender.com/Customers/${item._id}`,
       );
       console.log(response.data);
@@ -36,26 +35,28 @@ export default function CustomerDetail({
       <View style={styles.content}>
         <Text style={styles.pinkBold}>General information</Text>
         <View style={styles.row}>
-          <Text style={styles.blackBold}>Name: </Text>
+          <Text style={styles.blackBold}>Name: {item.name}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.blackBold}>Phone: </Text>
+          <Text style={styles.blackBold}>Phone: {item.phone}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.blackBold}>Total spent: </Text>
+          <Text style={styles.blackBold}>Total spent: {item.totalSpent}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.blackBold}>Time: </Text>
+          <Text style={styles.blackBold}>Time:</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.blackBold}>Last update: </Text>
+          <Text style={styles.blackBold}>
+            Last update: {new Date(item.createdAt).toLocaleDateString('vi-VN')}
+          </Text>
         </View>
       </View>
       <View style={styles.content}>
         <Text style={styles.pinkBold}>Transaction history</Text>
         <View style={styles.containerCustomer}>
           <View style={styles.information}>
-            <Text style={styles.title}>{customerDetail?.transactions?.id}</Text>
+            <Text style={styles.title}>{item.transactions._id}</Text>
           </View>
           <View style={styles.containerPrice}>
             <Text style={styles.price} numberOfLines={1} ellipsizeMode="tail">
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     marginBottom: 15,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     paddingVertical: 15,
   },
   blackBold: {

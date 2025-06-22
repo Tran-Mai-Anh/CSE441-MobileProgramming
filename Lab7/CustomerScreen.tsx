@@ -1,11 +1,11 @@
 import {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Customer} from './interfaces';
 import axios from 'axios';
 import {FlatList, Text} from 'react-native-gesture-handler';
 import {Pressable, StatusBar, StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Foundation from 'react-native-vector-icons/Foundation';
+import { Customer } from './interfaces';
 
 export default function CustomerScreen({navigation}) {
   const [customer, setCustomer] = useState<Customer[]>([]);

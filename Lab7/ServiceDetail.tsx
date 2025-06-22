@@ -8,9 +8,9 @@ import {
   View,
 } from 'react-native';
 import {Icon} from 'react-native-paper';
-import {ServiceDetailProps} from './ScreenType';
 import {Button} from 'react-native-paper';
 import axios from 'axios';
+import { ServiceDetailProps } from './ScreenType';
 
 export default function ServiceDetail({navigation, route}: ServiceDetailProps) {
   const item = route.params;
