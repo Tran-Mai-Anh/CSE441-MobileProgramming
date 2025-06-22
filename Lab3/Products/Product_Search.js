@@ -1,6 +1,15 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { Card, Button } from 'react-native-paper';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import {Card, Button} from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Product_Search = () => {
   const [value, setValue] = useState('');
@@ -8,26 +17,26 @@ const Product_Search = () => {
 
   const searchProduct = () => {
     if (value !== '') {
-      const filePath = `https://dummyjson.com/products/search?q=${value}`;
+      const filePath = 'https://dummyjson.com/products/2';
       fetch(filePath)
-        .then((response) => {
+        .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
           return response.json();
         })
-        .then((d) => {
-          setData(d.products);
+        .then(d => {
+          setData(d);
         })
-        .catch((error) => {
+        .catch(error => {
           console.error('Error fetching data:', error);
         });
     }
   };
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({item}) => (
     <Card style={styles.card}>
-      <Card.Cover source={{ uri: item.thumbnail }} />
+      <Card.Cover source={{uri: item.thumbnail}} />
       <Card.Content>
         <Text style={styles.title}>Title: {item.title}</Text>
         <Text>Description: {item.description}</Text>
@@ -42,29 +51,31 @@ const Product_Search = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Search Products</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter product name"
-        value={value}
-        onChangeText={setValue}
-      />
-      <Button mode="contained" onPress={searchProduct} style={styles.button}>
-        SEARCH
-      </Button>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-      />
-    </View>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <Text style={styles.heading}>Search Products</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter product name"
+          value={value}
+          onChangeText={setValue}
+        />
+        <Button mode="contained" onPress={searchProduct} style={styles.button}>
+          SEARCH
+        </Button>
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={item => item.id.toString()}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
     padding: 10,
   },
   heading: {
