@@ -38,6 +38,8 @@ import TransactionDetail from './TransactionDetail.tsx';
 import CustomerDetail from './CustomerDetail.tsx';
 import EditService from './EditService.tsx';
 import ServiceDetail from './ServiceDetail.tsx';
+import EditCustomer from './EditCustomer.tsx';
+import AddTransaction from './AddTransaction.tsx';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -136,6 +138,38 @@ export default function App() {
           }}
           name="CustomerDetail"
           component={CustomerDetail}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: '#EF506B',
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              color: '#fff',
+              fontWeight: 'bold',
+            },
+            headerTitle:'Customer Edit',
+          }}
+          name="EditCustomer"
+          component={EditCustomer}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: '#EF506B',
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              color: '#fff',
+              fontWeight: 'bold',
+            },
+            headerTitle:'Add Transaction',
+          }}
+          name="AddTransaction"
+          component={AddTransaction}
         />
       </Stack.Navigator>
     </NavigationContainer>

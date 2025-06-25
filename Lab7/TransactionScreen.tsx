@@ -67,7 +67,7 @@ export default function TransactionScreen({navigation}) {
             renderItem={({item}) => renderItem(item)}
           />
           <View style={styles.add}>
-            <Pressable onPress={() => navigation.navigate('AddCustomer')}>
+            <Pressable onPress={() => navigation.navigate('AddTransaction')}>
               <Icon name="add-circle" size={50} color="#ef536d" />
             </Pressable>
           </View>

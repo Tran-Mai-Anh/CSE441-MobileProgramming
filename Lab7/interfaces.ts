@@ -41,3 +41,14 @@ export interface Transaction {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface ServiceInAddTransaction{
+  _id:string;
+  quantity:number;
+  userId:string;
+}
+
+export interface AddTransactionForm{
+  customerId:string;
+  services:ServiceInAddTransaction[];
+}

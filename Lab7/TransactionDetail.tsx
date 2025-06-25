@@ -11,6 +11,7 @@ import {Icon} from 'react-native-paper';
 import {TransactionDetailProps} from './ScreenType';
 import {Button} from 'react-native-paper';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function TransactionDetail({
   navigation,
@@ -18,19 +19,79 @@ export default function TransactionDetail({
 }: TransactionDetailProps) {
   const item = route.params;
 
+  const[showMenu,setShowMenu] = useState<boolean>(false);
+const [token, setToken] = useState<string | null>(null);
+  useEffect(() => {
+    AsyncStorage.getItem('token').then(val => {
+      setToken(val);
+    });
+  }, []);
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Pressable style={styles.icon}>
+       <Pressable style={styles.icon} onPress={() => setShowMenu(prev => !prev)}>
           <Icon source="dots-vertical" size={30} color="white" />
         </Pressable>
       ),
     });
   }, []);
 
+  const handleDeleteTransaction = async () => {
+    try {
+      await axios.delete(
+        `https://kami-backend-5rs0.onrender.com/transactions/${item._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const handleDelete = () => {
+    Alert.alert(
+      'Warning',
+      'Are you sure want to cancel this transaction? This will affect customer transaction information.',
+      [
+        {
+          text: 'Yes',
+          onPress: () => handleDeleteTransaction(),
+          style: 'destructive',
+        },
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+      ],
+      {
+        cancelable: false,
+      },
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
+      
       <View style={styles.content}>
+         {showMenu && (
+              <View style={styles.menuContainer}>
+                <Pressable>
+                  <View style={styles.menuIcon}>
+                    
+                    <Text>See more detail</Text>
+                  </View>
+                </Pressable>
+                <Pressable onPress={() => handleDelete()}>
+                  <View style={styles.menuIcon}>
+                    
+                    <Text style={styles.textError}>Cancel transaction</Text>
+                  </View>
+                </Pressable>
+              </View>
+            )}
         <Text style={styles.pinkBold}>General information</Text>
         <View style={styles.row}>
           <Text style={styles.grayBold}>Transaction code</Text>
@@ -162,4 +223,25 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
   },
+  menuContainer: {
+    position: 'absolute',
+    top: -20,
+    right: 5,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+    padding: 10,
+    backgroundColor: 'white',
+    zIndex: 3,
+    borderWidth: 1,
+    borderColor: 'black',
+  },
+  menuIcon: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 10,
+  },
+  textError:{
+    color:"red"
+  }
 });

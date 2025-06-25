@@ -9,5 +9,11 @@ export type RootStackParamList = {
   AddCustomer: undefined;
   TransactionDetail: Transaction;
   CustomerDetail: Customer;
+  EditCustomer:{
+    name:string;
+    phone:string;
+    id:string;
+  };
+  AddTransaction:undefined;
 };
 // định nghĩa kiểu dữ liệu nhận vào của màn hình

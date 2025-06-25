@@ -5,5 +5,7 @@ export type ServiceDetailProps=NativeStackScreenProps<RootStackParamList, 'Servi
 export type EditServiceProps=NativeStackScreenProps<RootStackParamList, 'EditService'>;
 export type TransactionDetailProps=NativeStackScreenProps<RootStackParamList, 'TransactionDetail'>;
 export type CustomerDetailProps=NativeStackScreenProps<RootStackParamList, 'CustomerDetail'>;
+export type EditCustomerProps = NativeStackScreenProps<RootStackParamList,"EditCustomer">;
+export type AddTransactionProps = NativeStackScreenProps<RootStackParamList,"AddTransaction">;
 
 // định nghĩa kiểu dữ liệu của màn hình 

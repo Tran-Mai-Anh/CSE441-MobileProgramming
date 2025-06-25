@@ -3,20 +3,22 @@ import axios from 'axios';
 import {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
+import { EditCustomerProps } from './ScreenType';
 
-export default function EditCustomer() {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+export default function EditCustomer({navigation,route} : EditCustomerProps) {
+  const item = route.params;
+  const [name, setName] = useState(item.name);
+  const [phone, setPhone] = useState(item.phone);
   const [token, setToken] = useState<string | null>(null);
 
-  async function addCustomer() {
+  async function editCustomer() {
     console.log(token);
     try {
-      const response = await axios.post(
-        'https://kami-backend-5rs0.onrender.com/customers',
+      const response = await axios.put(
+        `https://kami-backend-5rs0.onrender.com/Customers/${item.id}`,
         {
           name,
-          phone: Number(phone),
+          phone,
         },
         {headers: {Authorization: `Bearer ${token}`}},
       );
@@ -25,6 +27,9 @@ export default function EditCustomer() {
       console.log('Error');
     }
   }
+
+
+
   useEffect(() => {
     AsyncStorage.getItem('token').then(val => {
       setToken(val);
@@ -42,6 +47,7 @@ export default function EditCustomer() {
           theme={{roundness: 10}}
           mode="outlined"
           label="Input your customer's name"
+          value={name}
         />
         <Text style={styles.title}>Phone *</Text>
         <TextInput
@@ -56,13 +62,14 @@ export default function EditCustomer() {
           theme={{roundness: 10}}
           mode="outlined"
           label="Input phone number"
+          value={phone}
         />
         <Button
           mode="contained"
           style={styles.button}
           labelStyle={styles.label}
-          onPress={() => addCustomer()}>
-          Add
+          onPress={() => editCustomer()}>
+          Edit
         </Button>
       </View>
     </SafeAreaView>
